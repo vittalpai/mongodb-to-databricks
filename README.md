@@ -1,7 +1,7 @@
 # MongoDB To Databricks
 Data from MongoDB Atlas can be moved to Delta Lake in batch/real-time and can be aggregated with historical data and other data sources to run long-running analytics and complex machine learning pipelines to derive valuable insights and these insights can be moved back to MongoDB Atlas so that it reaches the right audience at the right time.
 
-[MongoDB to Databricks](/images/mongodb-to-databricks.png)
+[MongoDB to Databricks](images/mongodb-to-databricks.png)
 
 
 The data from MongoDB Atlas can be movies to Delta Lake in the following ways:
