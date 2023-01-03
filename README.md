@@ -23,7 +23,15 @@ The data from MongoDB Atlas can be movies to Delta Lake in the following ways:
 
 
 ### 1. Using Spark Connector
-The MongoDB Connector for Apache Spark allows you to use MongoDB as a data source for Apache Spark. You can use the connector to read data from MongoDB and write it to Databricks using Spark's API and with the newly announced Databricks Notebooks integration, MongoDB developers now have an even easier and more intuitive interface to write complex transformation jobs. Refer to this documentation for more details.
+The MongoDB Connector for Apache Spark allows you to use MongoDB as a data source for Apache Spark. You can use the connector to read data from MongoDB and write it to Databricks using Spark's API and with the newly announced Databricks Notebooks integration, MongoDB developers now have an even easier and more intuitive interface to write complex transformation jobs.
+
+- Login to Databricks cluster, Click on `New` > `Data`.
+    ![Data](/images/new-data.jpeg)
+
+- Click on `MongoDB` which is available under Native Integrations tab. This loads the pyspark notebook which provides a top-level introduction in using Spark with MongoDB.
+    ![MongoDB Notebook](/images/mongodb-notebook.jpeg)
+
+- Follow the instructions in the notebook to learn how to load the data from MongoDB to Databricks deltalake using Spark.
  
  
 ### 2. Using $out Operator & Object Storage
