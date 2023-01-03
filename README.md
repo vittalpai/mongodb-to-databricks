@@ -32,9 +32,11 @@ This approach involves using the $out stage in the MongoDB aggregation pipeline 
 We need to set up a Federated Database Instance to copy our MongoDB data and utilize MongoDB Atlas Data Federation's $out to S3 to copy MongoDB Data and land it in an S3 bucket. 
 
 - The first thing you'll need to do is navigate to "Data Federation" on the left-hand side of your Atlas Dashboard and then click "Create Federated Database Instance" or "Configure a New Federated Database Instance."
+
     ![Data Federation](/images/data_federation.jpeg)
 
 - Connect your S3 bucket to your Federated Database Instance. This is where we will write the MongoDB data. The setup wizard should guide you through this pretty quickly, but you will need access to your credentials for AWS.
+
     ![Add data source](/images/add_data_source.jpeg)
 
 - Select an AWS IAM role for Atlas.
