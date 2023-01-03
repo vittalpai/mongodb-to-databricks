@@ -14,13 +14,12 @@ The data from MongoDB Atlas can be movies to Delta Lake in the following ways:
 - [Databricks Delta Lake Cluster](https://www.databricks.com/product/delta-lake-on-databricks)
 - [AWS S3 bucket](https://aws.amazon.com/s3/)
 - [MongoDB Shell](https://www.mongodb.com/try/download/shell)
-- Good understanding of MongoDB Atlas, Databricks, AWS and Application services
-
+- [Apache Kafka Cluster](https://kafka.apache.org/)
+- Good understanding of MongoDB Atlas, Databricks, AWS Services, Kafka and Application services
 
 
 ## One-time data load
 ![One-time-data-load](/images/one-time-data-load.png)
-
 
 ### 1. Using Spark Connector
 The MongoDB Connector for Apache Spark allows you to use MongoDB as a data source for Apache Spark. You can use the connector to read data from MongoDB and write it to Databricks using Spark's API and with the newly announced Databricks Notebooks integration, MongoDB developers now have an even easier and more intuitive interface to write complex transformation jobs.
@@ -81,9 +80,10 @@ We need to set up a Federated Database Instance to copy our MongoDB data and uti
 - Define the path structure for your files in the S3 bucket and click Next. Now you've successfully configured S3 bucket with Atlas Data Federation.
 
 - Connect to your MongoDB instance using the MongoDB shell. This command prompts to enter the password.
-    ````
-    mongosh "mongodb+srv://server.example.mongodb.net" --username john
     ```
+    mongosh "mongodb+srv://server.example.mongodb.net" --username username
+    ```
+    Replace MongoDB connection string and username with appropriate values.
 
 - Specify the database and collection that you want to export data from using the following commands.
     ```
@@ -114,3 +114,25 @@ MongoDB Connector for Apache Spark enables real-time micro-batch processing of d
 Apache Kafka can be utilized as a buffer between MongoDB and Databricks. When new data is added to the MongoDB database, it is sent to the message queue using the MongoDB Source Connector for Apache Kafka. This data is then pushed to object storage using sink connectors, such as the Amazon S3 Sink connector. The data can then be transferred to Databricks Delta Lake using the Autoloader option, which allows for incremental data ingestion. This approach is highly scalable and fault-tolerant, as Kafka can process large volumes of data and recover from failures.
 
 ![Real-time-sync-using-kafka](/images/real-time-sync-using-kafka.png)
+
+- - Download & Install the MongoDB Source & AWS Sink Connector Plugin in your Kafka Cluster 
+    - https://www.confluent.io/hub/mongodb/kafka-connect-mongodb
+    - https://www.confluent.io/hub/confluentinc/kafka-connect-s3
+
+- Update the following in the [mongodb-source-connector.properties](/connection-properties/mongodb-source-connector.properties) connector configuration file.
+    - `CONNECTION-STRING` - MongoDB Cluster Connection String
+    - `DB-NAME` - Database Name
+    - `COLLECTION-NAME` - Collection Name
+
+- Update the following in the [s3-sink-connector.properties](/connection-properties/s3-sink-connector.properties) connector configuration file.
+    - `TOPIC-NAME` - Kafka Topic Name (i.e DB.COLLECTION name)
+    - `S3-REGION` - AWS S3 Region Name
+    - `S3-BUCKET-NAME` - AWS S3 Bucket Name where you wish to push the data.
+
+- Deploy the connector configuration files in your Kafka Cluster. This will enable real time data synchronization from MongoDB to AWS S3 Buckets.
+
+    **Note**: The above connector push the data to the S3 bucket at a regular interval of time, these configuration can be modified based on the use case. Refer to the following documentation for more details.
+    - [MongoDB Souce Configuration](https://www.mongodb.com/docs/kafka-connector/current/source-connector/configuration-properties/)
+    - [AWS S3 Sink Configuration](https://docs.confluent.io/kafka-connectors/s3-sink/current/configuration_options.html)
+
+- Load the data from S3 buckets to Databricks Delta lake using Databricks [Autoloader](https://docs.databricks.com/ingestion/auto-loader/index.html) feature. Refer [this](https://docs.databricks.com/ingestion/auto-loader/unity-catalog.html) documentation for more details.
