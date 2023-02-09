@@ -115,7 +115,7 @@ Apache Kafka can be utilized as a buffer between MongoDB and Databricks. When ne
 
 ![Real-time-sync-using-kafka](/images/real-time-sync-using-kafka.png)
 
-- - Download & Install the MongoDB Source & AWS Sink Connector Plugin in your Kafka Cluster 
+- Download & Install the MongoDB Source & AWS Sink Connector Plugin in your Kafka Cluster 
     - https://www.confluent.io/hub/mongodb/kafka-connect-mongodb
     - https://www.confluent.io/hub/confluentinc/kafka-connect-s3
 
