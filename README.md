@@ -105,9 +105,23 @@ Real-time data synchronization needs to happen immediately following the one-tim
 
 
 ### 1. Using Spark streaming
-MongoDB Connector for Apache Spark enables real-time micro-batch processing of data, enabling you to synchronize data from MongoDB to Databricks using Spark Streaming. This allows you to process data as it is generated, with the help of MongoDB's change data capture (CDC) feature to track all changes. By utilizing Spark Streaming, you can make timely and informed decisions based on the most up-to-date information available at Delta lake.
+MongoDB has released a [version](https://www.mongodb.com/docs/spark-connector/current/) of the MongoDB Connector for Apache Spark that leverages the new Spark Data Sources API V2 with support for Spark Structured Streaming. MongoDB Connector for Apache Spark enables real-time micro-batch processing of data, enabling you to synchronize data from MongoDB to Databricks using Spark Streaming. This allows you to process data as it is generated, with the help of MongoDB's change data capture (CDC) feature to track all changes. By utilizing Spark Streaming, you can make timely and informed decisions based on the most up-to-date information available at Delta lake. More details about the streaming functionality can be found [here](https://www.mongodb.com/developer/languages/python/streaming-data-apache-spark-mongodb/).
 
 ![Real-time-sync-using-spark](/images/real-time-sync-using-spark.png)
+
+- Login to Databricks cluster, Click on `New` > `Notebook`.
+    ![Data](/images/new-notebook.png)
+
+- In create a notebook dialog, enter a `name`, select `Python` as the default language, and choose the Databricks cluster. Then click on `Create`.
+    
+- Obtain the Spark streaming Python notebook from [here](https://github.com/vittalpai/mongodb-to-databricks/blob/main/data-streaming/mdb-spark-streaming.ipynb).
+
+- Go to `File` > `Import`, and navigate to the notebook you downloaded in the previous step.
+
+- Click on `Import` to add the data streaming notebook to your workspace.
+    ![Data](/images/import-notebook.png)
+
+- Follow the instructions in the notebook to learn how to stream the data from MongoDB to Databricks Delta Lake using Spark connector for MongoDB.
 
 
 ### 2. Using Apache Kafka and Object Storage 
